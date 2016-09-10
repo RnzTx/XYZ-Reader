@@ -30,12 +30,12 @@ import com.example.xyzreader.data.ArticleLoader;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
- * either contained in a {@link ArticleListActivity} in two-pane mode (on
- * tablets) or a {@link ArticleDetailActivity} on handsets.
+ * either contained in a {@link MainActivity} in two-pane mode (on
+ * tablets) or a {@link DetailActivity} on handsets.
  */
-public class ArticleDetailFragment extends Fragment implements
+public class DetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = "ArticleDetailFragment";
+    private static final String TAG = "DetailFragment";
 
     public static final String ARG_ITEM_ID = "item_id";
     private static final float PARALLAX_FACTOR = 1.25f;
@@ -59,13 +59,13 @@ public class ArticleDetailFragment extends Fragment implements
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ArticleDetailFragment() {
+    public DetailFragment() {
     }
 
-    public static ArticleDetailFragment newInstance(long itemId) {
+    public static DetailFragment newInstance(long itemId) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
-        ArticleDetailFragment fragment = new ArticleDetailFragment();
+        DetailFragment fragment = new DetailFragment();
         fragment.setArguments(arguments);
         return fragment;
     }
@@ -84,8 +84,8 @@ public class ArticleDetailFragment extends Fragment implements
         setHasOptionsMenu(true);
     }
 
-    public ArticleDetailActivity getActivityCast() {
-        return (ArticleDetailActivity) getActivity();
+    public DetailActivity getActivityCast() {
+        return (DetailActivity) getActivity();
     }
 
     @Override
@@ -117,7 +117,7 @@ public class ArticleDetailFragment extends Fragment implements
             @Override
             public void onScrollChanged() {
                 mScrollY = mScrollView.getScrollY();
-                getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
+                getActivityCast().onUpButtonFloorChanged(mItemId, DetailFragment.this);
                 mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
                 updateStatusBar();
             }

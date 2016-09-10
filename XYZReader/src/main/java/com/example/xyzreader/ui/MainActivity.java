@@ -14,8 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
-import android.util.TypedValue;
-import android.view.MenuItem;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,10 +28,10 @@ import com.example.xyzreader.data.UpdaterService;
 /**
  * An activity representing a list of Articles. This activity has different presentations for
  * handset and tablet-size devices. On handsets, the activity presents a list of items, which when
- * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
+ * touched, lead to a {@link DetailActivity} representing item details. On tablets, the
  * activity presents a grid of items as cards.
  */
-public class ArticleListActivity extends ActionBarActivity implements
+public class MainActivity extends ActionBarActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private Toolbar mToolbar;
@@ -41,7 +41,7 @@ public class ArticleListActivity extends ActionBarActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article_list);
+        setContentView(R.layout.activity_main);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -56,6 +56,10 @@ public class ArticleListActivity extends ActionBarActivity implements
         if (savedInstanceState == null) {
             refresh();
         }
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        Log.e("TAG","DP: "+dpHeight+" "+dpWidth);
     }
 
     private void refresh() {
@@ -152,7 +156,7 @@ public class ArticleListActivity extends ActionBarActivity implements
                             + mCursor.getString(ArticleLoader.Query.AUTHOR));
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
-                    ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
+                    ImageLoaderHelper.getInstance(MainActivity.this).getImageLoader());
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
         }
 
