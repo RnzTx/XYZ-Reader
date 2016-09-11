@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.net.Uri;
 
+
 /**
  * Helper for loading a list of articles or a single article.
  */
