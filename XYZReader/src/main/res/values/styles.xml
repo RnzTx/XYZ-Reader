@@ -34,9 +34,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="appbar_article_detail" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!--As Article detail is using NoActionBar theme -->
-        <!--we have to set this theme manually-->
-        <item name="android:textAllCaps">true</item>
+    <style name="toolbar_expanded_title" parent="@style/TextAppearance.AppCompat.Title">
+
+        <item name="android:textSize">26sp</item>
     </style>
 </resources>

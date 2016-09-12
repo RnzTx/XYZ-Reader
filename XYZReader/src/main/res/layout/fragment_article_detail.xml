@@ -15,7 +15,8 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/color_primary"
-            android:theme="@style/appbar_article_detail">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:expandedTitleTextAppearance="@style/toolbar_expanded_title">
             <ImageView
                 android:id="@+id/img_article_detail"
                 android:layout_width="match_parent"
@@ -26,8 +27,7 @@
                 android:id="@+id/toolbar_article_detail"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/appbar_article_detail">
+                app:layout_collapseMode="pin">
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

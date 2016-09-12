@@ -63,7 +63,6 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
 		String val_article_author = cursor.getString(ArticleLoader.Query.AUTHOR);
 		String val_article_body = cursor.getString(ArticleLoader.Query.BODY);
 
-//		tvArticleTitle.setText(val_article_title);
 		tvArticleBody.setText(val_article_body);
 		toolbar.setTitle(val_article_title);
 	}
