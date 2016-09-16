@@ -6,62 +6,17 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ui.detail.ArticleDetailActivity">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/detail_photo_height"
-        android:fitsSystemWindows="true">
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/color_primary"
-            app:expandedTitleTextAppearance="@style/toolbar_expanded_title">
-            <ImageView
-                android:id="@+id/iv_article_detail_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"/>
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_article_detail"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin">
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/appbar_detail"/>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/article_detail_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/detail_body_container_margin_top"
-            android:paddingBottom="@dimen/detail_body_container_padding_bottom"
-            android:id="@+id/article_detail_body">
 
-            <TextView
-                android:id="@+id/tv_article_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                />
-            <TextView
-                android:id="@+id/tv_article_body"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="@dimen/detail_body_text_size"
-                android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
-                android:autoLink="web"
-                android:linksClickable="true"/>
-        </LinearLayout>
+        <include layout="@layout/article_detail_content"/>
+
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
