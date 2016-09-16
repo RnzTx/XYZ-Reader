@@ -16,10 +16,9 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/color_primary"
-            app:expandedTitleTextAppearance="@style/toolbar_expanded_title"
-            app:expandedTitleMarginBottom="90dp">
+            app:expandedTitleTextAppearance="@style/toolbar_expanded_title">
             <ImageView
-                android:id="@+id/img_article_detail"
+                android:id="@+id/iv_article_detail_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -36,38 +35,44 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:behavior_overlapTop="70dp">
-        <android.support.v7.widget.CardView
-
-            android:id="@+id/article_detail_body_card_view"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentPadding="@dimen/activity_horizontal_margin"
-            android:layout_margin="8dp">
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/detail_body_container_margin_top"
+            android:paddingBottom="@dimen/detail_body_container_padding_bottom"
+            android:id="@+id/article_detail_body">
+
+            <TextView
+                android:id="@+id/tv_article_info"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/txt_article_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:id="@+id/txt_article_body"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                />
+            <TextView
+                android:id="@+id/tv_article_body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="@dimen/detail_body_text_size"
+                android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
+                android:autoLink="web"
+                android:linksClickable="true"/>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/article_detail_fab_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_share"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:elevation="@dimen/fab_elevation"
         app:layout_behavior="com.example.xyzreader.ui.ScrollAwareFabBehavior"
-        app:layout_anchor="@id/article_detail_body_card_view"
+        app:layout_anchor="@id/article_detail_body"
         app:layout_anchorGravity="bottom|right|end"/>
 </android.support.design.widget.CoordinatorLayout>
