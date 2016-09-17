@@ -35,7 +35,7 @@
     </style>
 
     <style name="toolbar_expanded_title" parent="@style/TextAppearance.AppCompat.Title">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">@dimen/detail_title_text_size</item>
     </style>
 
 </resources>
