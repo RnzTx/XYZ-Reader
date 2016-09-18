@@ -10,16 +10,17 @@
     <include layout="@layout/appbar_detail"/>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/article_detail_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:behavior_overlapTop="70dp"
+        android:layout_height="match_parent"
+        app:behavior_overlapTop="@dimen/detail_cv_overlap_top"
+        android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <android.support.v7.widget.CardView
-            android:id="@+id/article_detail_body"
-            android:layout_width="match_parent"
+
+            android:layout_width="@dimen/detail_cv_width"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detail_cv_horizontal_margin"
-            android:layout_marginEnd="@dimen/detail_cv_horizontal_margin">
+            android:layout_gravity="center_horizontal">
             <include layout="@layout/article_detail_content"/>
         </android.support.v7.widget.CardView>
 
@@ -34,6 +35,6 @@
         android:layout_marginBottom="@dimen/fab_margin"
         android:elevation="@dimen/fab_elevation"
         app:layout_behavior="com.example.xyzreader.ui.ScrollAwareFabBehavior"
-        app:layout_anchor="@id/article_detail_body"
-        app:layout_anchorGravity="top|right|end"/>
+        app:layout_anchor="@id/article_detail_scroll_view"
+        app:layout_anchorGravity="bottom|right|end"/>
 </android.support.design.widget.CoordinatorLayout>
