@@ -1,11 +1,9 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.detail.ArticleDetailActivity">
+    android:fitsSystemWindows="true">
 
     <include layout="@layout/appbar_detail"/>
 
@@ -14,14 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_overlapTop="@dimen/detail_cv_overlap_top"
-        android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <android.support.v7.widget.CardView
-
             android:layout_width="@dimen/detail_cv_width"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_gravity="center_horizontal">
-            <include layout="@layout/article_detail_content"/>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                layout="@layout/article_detail_content"/>
         </android.support.v7.widget.CardView>
 
     </android.support.v4.widget.NestedScrollView>
