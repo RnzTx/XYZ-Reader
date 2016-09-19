@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/collapsing_toolbar_article_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -24,7 +25,8 @@
             android:id="@+id/toolbar_article_detail"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:layout_collapseMode="pin">
+            app:layout_collapseMode="pin"
+            app:navigationIcon="@drawable/ic_back">
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.CollapsingToolbarLayout>
 </android.support.design.widget.AppBarLayout>

@@ -6,8 +6,9 @@
     android:layout_height="match_parent">
     <include layout="@layout/appbar_main"/>
     <FrameLayout
-        style="@style/article_list_max_width"
         android:layout_height="match_parent"
+        android:layout_width="@dimen/article_list_width"
+        android:layout_gravity="center_horizontal"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <include layout="@layout/article_list"/>

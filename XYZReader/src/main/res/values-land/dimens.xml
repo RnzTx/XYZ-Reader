@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Activity Main-->
+    <dimen name="article_list_width">400dp</dimen>
+
     <dimen name="detail_cv_width">470dp</dimen>
     <dimen name="detail_photo_height">250dp</dimen>
-    <dimen name="detail_cv_horizontal_margin">32dp</dimen>
     <dimen name="detail_expanded_title_margin_bottom">92dp</dimen>
     <dimen name="detail_cv_overlap_top">70dp</dimen>
 

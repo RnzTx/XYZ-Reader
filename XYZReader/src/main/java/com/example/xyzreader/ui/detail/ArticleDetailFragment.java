@@ -5,9 +5,11 @@ package com.example.xyzreader.ui.detail;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -36,6 +38,8 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
 	@BindView(R.id.tv_article_body)TextView tvArticleBody;
 	@BindView(R.id.toolbar_article_detail)Toolbar toolbar;
 	@BindView(R.id.tv_article_info)TextView tvArticleInfo;
+	@BindView(R.id.collapsing_toolbar_article_detail)CollapsingToolbarLayout collapsingToolbarLayout;
+	ArticleDetailFragment fragment = this;
 
 	public ArticleDetailFragment() {
 	}
@@ -48,6 +52,14 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
 		articleId = ItemsContract.Items.getItemId(getActivity().getIntent().getData());
 		getLoaderManager().initLoader(0,null,this);
 		ButterKnife.bind(this,rootView);
+
+		// home button navigation
+		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				getActivity().finish();
+			}
+		});
 		return rootView;
 	}
 
@@ -78,6 +90,7 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
 						" by "+
 						val_article_author
 		);
+//		collapsingToolbarLayout.setTitle(val_article_title);
 		toolbar.setTitle(val_article_title);
 	}
 
