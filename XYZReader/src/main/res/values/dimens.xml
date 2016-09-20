@@ -17,6 +17,7 @@
 
     <!-- list -->
     <dimen name="list_side_margin">4dp</dimen>
+    <dimen name="list_item_margin">4dp</dimen>
     <integer name="list_column_count">2</integer>
 
     <!-- detail -->
