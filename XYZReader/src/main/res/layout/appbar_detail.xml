@@ -10,11 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:contentScrim="@color/color_primary"
-        app:expandedTitleTextAppearance="@style/toolbar_expanded_title"
-        app:expandedTitleMargin="@dimen/detail_expanded_title_margin_bottom"
-        app:expandedTitleGravity="center_horizontal|bottom">
+        app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+        app:contentScrim="@color/color_primary">
         <ImageView
             android:id="@+id/iv_article_detail_image"
             android:layout_width="match_parent"
