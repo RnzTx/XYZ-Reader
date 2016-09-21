@@ -5,12 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -21,10 +25,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
+import com.example.xyzreader.ui.detail.ArticleDetailActivity;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -38,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    public static final String EXTRAS_PALETTE_COLOR = "extras_palette_color";
+    public static final String EXTRAS_ARTICLE_ID = "extras_article_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +145,18 @@ public class MainActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                    Intent intent = new Intent(view.getContext(),ArticleDetailActivity.class);
+                    intent.putExtra(EXTRAS_ARTICLE_ID,getItemId(vh.getAdapterPosition()));
+                    // send palette color in advance
+                    Bitmap bitmap = ((BitmapDrawable)vh.thumbnailView.getDrawable()).getBitmap();
+                    if (bitmap!=null && !bitmap.isRecycled()){
+                        Palette palette = Palette.from(bitmap).generate();
+                        final int defaultDarkColor = ContextCompat.getColor(view.getContext()
+                                ,R.color.cardview_dark_background);
+                        int darkColor = palette.getDarkVibrantColor(defaultDarkColor);
+                        intent.putExtra(EXTRAS_PALETTE_COLOR,darkColor);
+                    }
+                    startActivity(intent);
                 }
             });
             return vh;

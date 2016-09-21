@@ -2,6 +2,7 @@ package com.example.xyzreader.ui.detail;
 
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.bumptech.glide.request.target.Target;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
+import com.example.xyzreader.ui.MainActivity;
 
 import org.w3c.dom.Text;
 
@@ -50,8 +52,8 @@ public class ArticleDetailFragment extends Fragment implements
 	@BindView(R.id.toolbar_article_detail)Toolbar toolbar;
 	@BindView(R.id.tv_article_info)TextView tvArticleInfo;
 	@BindView(R.id.tv_article_title)TextView tvArticleTitle;
-//	@BindViews({R.id.tv_article_title,R.id.tv_article_info}) List<TextView> articleHeaders;
 	@BindView(R.id.article_detail_body_headers)LinearLayout articleHeaders;
+
 
 	public ArticleDetailFragment() {
 	}
@@ -61,10 +63,20 @@ public class ArticleDetailFragment extends Fragment implements
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View rootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-		articleId = ItemsContract.Items.getItemId(getActivity().getIntent().getData());
+
+//		articleId = ItemsContract.Items.getItemId(getActivity().getIntent().getData());
+		Intent intent = getActivity().getIntent();
+		articleId = intent.getLongExtra(MainActivity.EXTRAS_ARTICLE_ID,0);
+
 		getLoaderManager().initLoader(0,null,this);
 		ButterKnife.bind(this,rootView);
-
+		// get palette color from main Activity
+		if (intent.hasExtra(MainActivity.EXTRAS_PALETTE_COLOR)){
+			int paletteColor = intent.getIntExtra(MainActivity.EXTRAS_PALETTE_COLOR,0);
+			if (paletteColor!=0){
+				articleHeaders.setBackgroundColor(paletteColor);
+			}
+		}
 		// home button navigation
 		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 			@Override
@@ -122,12 +134,6 @@ public class ArticleDetailFragment extends Fragment implements
 	@Override
 	public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
 	                               boolean isFromMemoryCache, boolean isFirstResource) {
-		Bitmap bitmap = ((GlideBitmapDrawable)resource.getCurrent()).getBitmap();
-		Palette palette = Palette.from(bitmap).generate();
-		int defaultDarkColor = ContextCompat.getColor(getContext(),R.color.cardview_dark_background);
-
-		int darkColor = palette.getDarkMutedColor(defaultDarkColor);
-		articleHeaders.setBackgroundColor(darkColor);
 		return false;
 	}
 }
