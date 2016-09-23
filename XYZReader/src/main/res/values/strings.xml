@@ -2,7 +2,5 @@
 
     <string name="app_name">XYZ Reader test</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-
-    <!--font family-->
+    <string name="string_send_to">Share Article Content</string>
 </resources>

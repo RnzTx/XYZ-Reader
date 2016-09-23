@@ -44,6 +44,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ArticleDetailFragment extends Fragment implements
 		LoaderManager.LoaderCallbacks<Cursor>,RequestListener<String,GlideDrawable>{
@@ -139,5 +140,17 @@ public class ArticleDetailFragment extends Fragment implements
 	                               boolean isFromMemoryCache, boolean isFirstResource) {
 		progressBar.setVisibility(View.INVISIBLE);
 		return false;
+	}
+	@OnClick(R.id.article_detail_fab_share)
+	void onFabClick(){
+		String content  = tvArticleBody.getText().toString();
+		if (content!=null && !content.isEmpty()){
+			Intent sendIntent = new Intent();
+			sendIntent.setAction(Intent.ACTION_SEND);
+			sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+			sendIntent.setType("text/plain");
+			startActivity(Intent.createChooser(sendIntent,
+					getResources().getText(R.string.string_send_to)));
+		}
 	}
 }

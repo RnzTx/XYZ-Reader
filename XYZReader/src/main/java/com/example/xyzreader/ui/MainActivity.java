@@ -148,15 +148,17 @@ public class MainActivity extends AppCompatActivity implements
                     Intent intent = new Intent(view.getContext(),ArticleDetailActivity.class);
                     intent.putExtra(EXTRAS_ARTICLE_ID,getItemId(vh.getAdapterPosition()));
                     // send palette color in advance
-                    Bitmap bitmap = ((BitmapDrawable)vh.thumbnailView.getDrawable()).getBitmap();
-                    if (bitmap!=null && !bitmap.isRecycled()){
-                        Palette palette = Palette.from(bitmap).generate();
-                        final int defaultDarkColor = ContextCompat.getColor(view.getContext()
-                                ,R.color.cardview_dark_background);
-                        int darkColor = palette.getDarkVibrantColor(defaultDarkColor);
-                        intent.putExtra(EXTRAS_PALETTE_COLOR,darkColor);
+                    if (vh.thumbnailView.getDrawable()!=null){
+                        Bitmap bitmap = ((BitmapDrawable)vh.thumbnailView.getDrawable()).getBitmap();
+                        if (bitmap!=null && !bitmap.isRecycled()){
+                            Palette palette = Palette.from(bitmap).generate();
+                            final int defaultDarkColor = ContextCompat.getColor(view.getContext()
+                                    ,R.color.cardview_dark_background);
+                            int darkColor = palette.getDarkMutedColor(defaultDarkColor);
+                            intent.putExtra(EXTRAS_PALETTE_COLOR,darkColor);
+                        }
+                        startActivity(intent);
                     }
-                    startActivity(intent);
                 }
             });
             return vh;
