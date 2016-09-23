@@ -41,4 +41,12 @@
         app:layout_behavior="com.example.xyzreader.ui.ScrollAwareFabBehavior"
         app:layout_anchor="@id/article_detail_scroll_view"
         app:layout_anchorGravity="bottom|right|end"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/collapsing_toolbar_article_detail"
+        app:layout_anchorGravity="center_vertical|center_horizontal">
+        <include layout="@layout/progressbar_detail_layout"/>
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

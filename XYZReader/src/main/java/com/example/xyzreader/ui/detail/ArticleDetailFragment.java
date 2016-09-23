@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -53,8 +54,8 @@ public class ArticleDetailFragment extends Fragment implements
 	@BindView(R.id.tv_article_info)TextView tvArticleInfo;
 	@BindView(R.id.tv_article_title)TextView tvArticleTitle;
 	@BindView(R.id.article_detail_body_headers)LinearLayout articleHeaders;
-
-
+	@BindView(R.id.article_detail_progressbar)ProgressBar progressBar;
+	private RequestListener glideListener = this;
 	public ArticleDetailFragment() {
 	}
 
@@ -101,9 +102,10 @@ public class ArticleDetailFragment extends Fragment implements
 			return;
 
 		String photoUrl = cursor.getString(ArticleLoader.Query.PHOTO_URL);
-		Glide.with(this)
+		Glide.with(getContext())
 			.load(photoUrl)
-			.listener(this)
+			.dontAnimate()
+			.listener(glideListener)
 			.into(imgArticlePhoto);
 		
 		String val_article_title = cursor.getString(ArticleLoader.Query.TITLE);
@@ -128,12 +130,14 @@ public class ArticleDetailFragment extends Fragment implements
 
 	@Override
 	public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+		progressBar.setVisibility(View.INVISIBLE);
 		return false;
 	}
 
 	@Override
 	public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
 	                               boolean isFromMemoryCache, boolean isFirstResource) {
+		progressBar.setVisibility(View.INVISIBLE);
 		return false;
 	}
 }
