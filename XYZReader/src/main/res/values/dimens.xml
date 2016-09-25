@@ -2,15 +2,12 @@
     <!--Activity Main-->
 
     <!-- detail -->
-    <dimen name="detail_photo_height">304dp</dimen>
-    <dimen name="detail_title_text_size">32sp</dimen>
-    <dimen name="detail_body_text_size">18sp</dimen>
-    <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
-    <dimen name="detail_expanded_title_margin_bottom">16dp</dimen>
-    <dimen name="detail_content_margin">8dp</dimen>
+    <dimen name="article_detail_photo_height">304dp</dimen>
+    <item name="article_detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
+    <dimen name="article_detail_content_margin">8dp</dimen>
     <dimen name="fab_elevation">2dp</dimen>
     <dimen name="fab_margin">24dp</dimen>
-
+    <dimen name="article_detail_body_text_size">18sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_vertical_margin">16dp</dimen>
 
@@ -19,6 +16,4 @@
     <dimen name="list_item_margin">4dp</dimen>
     <integer name="list_column_count">2</integer>
 
-    <!-- detail -->
-    <!-- force match_parent -->
 </resources>

@@ -4,8 +4,7 @@
     <dimen name="article_list_width">800dp</dimen>
 
     <dimen name="detail_cv_width">800dp</dimen>
-    <dimen name="detail_photo_height">400dp</dimen>
-    <dimen name="detail_expanded_title_margin_bottom">165dp</dimen>
+    <dimen name="article_detail_photo_height">450dp</dimen>
     <dimen name="detail_cv_overlap_top">140dp</dimen>
 
     <dimen name="fab_margin">24dp</dimen>

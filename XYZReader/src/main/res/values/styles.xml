@@ -29,9 +29,4 @@
     <style name="transparent_status_bar" parent="AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
-    <style name="toolbar_expanded_title" parent="@style/TextAppearance.AppCompat.Title">
-        <item name="android:textSize">@dimen/detail_title_text_size</item>
-    </style>
-
 </resources>

@@ -1,4 +1,4 @@
 <resources>
     <!-- detail -->
-    <dimen name="detail_photo_height">384dp</dimen>
+    <dimen name="article_detail_photo_height">384dp</dimen>
 </resources>

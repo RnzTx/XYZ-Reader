@@ -9,7 +9,7 @@
         android:id="@+id/article_detail_body_headers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/detail_content_margin"
+        android:padding="@dimen/article_detail_content_margin"
         android:background="@color/cardview_dark_background"
         android:orientation="vertical">
 
@@ -29,14 +29,15 @@
             android:textColor="@android:color/background_light"/>
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/tv_article_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/detail_content_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-
-        android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
+        android:layout_margin="@dimen/article_detail_content_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:lineSpacingMultiplier="@fraction/article_detail_body_line_spacing_multiplier"
+        android:textSize="@dimen/article_detail_body_text_size"
         android:autoLink="web"
         android:linksClickable="true"/>
 </LinearLayout>
