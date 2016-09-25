@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Main List-->
-    <dimen name="article_list_width">800dp</dimen>
+    <dimen name="article_list_width">600dp</dimen>
 
     <dimen name="detail_cv_width">800dp</dimen>
     <dimen name="article_detail_photo_height">450dp</dimen>
