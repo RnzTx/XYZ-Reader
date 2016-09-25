@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/article_detail_content_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:lineSpacingMultiplier="@fraction/article_detail_body_line_spacing_multiplier"
         android:textSize="@dimen/article_detail_body_text_size"
         android:autoLink="web"
