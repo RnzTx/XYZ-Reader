@@ -4,11 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
@@ -19,18 +22,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
 import com.example.xyzreader.ui.detail.ArticleDetailActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -39,40 +42,28 @@ import com.example.xyzreader.ui.detail.ArticleDetailActivity;
  * activity presents a grid of items as cards.
  */
 public class MainActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener{
 
-    private Toolbar mToolbar;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
+
     public static final String EXTRAS_PALETTE_COLOR = "extras_palette_color";
     public static final String EXTRAS_ARTICLE_ID = "extras_article_id";
-
+    private LoaderManager.LoaderCallbacks loaderCallbacks = this;
+    private Context mContext = this;
+    private Resources resources;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
-        final View toolbarContainerView = findViewById(R.id.toolbar_container);
-
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        getSupportLoaderManager().initLoader(0,null,this);
-
+        ButterKnife.bind(this);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        getSupportLoaderManager().initLoader(0,null,loaderCallbacks);
+        resources = mContext.getResources();
         if (savedInstanceState == null) {
-            refresh();
+            onRefresh();
         }
-        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        Log.e("TAG","DP: "+dpHeight+" "+dpWidth);
-    }
-
-    private void refresh() {
-        startService(new Intent(this, UpdaterService.class));
     }
 
     @Override
@@ -88,21 +79,31 @@ public class MainActivity extends AppCompatActivity implements
         unregisterReceiver(mRefreshingReceiver);
     }
 
-    private boolean mIsRefreshing = false;
-
     private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
-                mIsRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING, false);
-                updateRefreshingUI();
+                if (intent.hasExtra(UpdaterService.EXTRA_ERROR)){
+                    // handle error
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    Snackbar.make(mSwipeRefreshLayout,resources.getString(R.string.string_error_connection),Snackbar.LENGTH_LONG)
+                            .setAction(resources.getString(R.string.string_action_retry_connection),new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    onRefresh();
+                                }
+                            })
+                            .show();
+                }else if(intent.hasExtra(UpdaterService.EXTRA_DATA_UPDATED)){
+                    // call loaders
+                    getSupportLoaderManager().initLoader(0,null,loaderCallbacks);
+                }else {
+                    // it is just refreshing
+                    mSwipeRefreshLayout.setRefreshing(true);
+                }
             }
         }
     };
-
-    private void updateRefreshingUI() {
-        mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -118,11 +119,17 @@ public class MainActivity extends AppCompatActivity implements
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mRecyclerView.setAdapter(null);
+    }
+
+    @Override
+    public void onRefresh() {
+        startService(new Intent(this, UpdaterService.class));
     }
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
@@ -158,6 +165,11 @@ public class MainActivity extends AppCompatActivity implements
                             intent.putExtra(EXTRAS_PALETTE_COLOR,darkColor);
                         }
                         startActivity(intent);
+                    }else {
+                        Snackbar snackbar = Snackbar.make(mSwipeRefreshLayout,
+                                resources.getString(R.string.string_error_data_availability),
+                                Snackbar.LENGTH_SHORT);
+                        snackbar.show();
                     }
                 }
             });

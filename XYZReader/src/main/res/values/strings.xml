@@ -3,4 +3,7 @@
     <string name="app_name">XYZ Reader test</string>
 
     <string name="string_send_to">Share Article Content</string>
+    <string name="string_error_connection">Connection Error</string>
+    <string name="string_error_data_availability">Content Not Ready</string>
+    <string name="string_action_retry_connection">Retry</string>
 </resources>
